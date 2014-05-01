@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+
+<head>
+   <title>Nutricion Integral</title>
+	<link href="nutricion.css" rel="stylesheet" type="text/css">
+	<script src="jquery-1.11.0.min.js"></script>
+	<script src="datos.js"></script> 
+</head>
+<html>
+<body>
+	<div>
+		Sincronización
+	</div>
+	<ul>
+		<li id='Niños'><a href="#" id="Ninos">Sincronizar Niños</a></li>
+		<li id='Formularios'><a href="#" id="#Fomularios">Sincronizar Formularios</a></li>
+	</ul>
+	<button id="Regresar">Regresar</button>
+</body>
+</html>
+
+<script>    
+function SincronizarNinos()
+{
+	console.log('Sincronizando niños');
+}
+	
+function SincronizarMenuFormularios()
+{
+	var Formularios = LeerMenuFormularios();
+	GuardarMenuFormularios(Formularios);
+}
+	
+$(function(){
+	
+	// Llama el menu sincronización
+	$('#Ninos').on('click', function () {
+	  SincronizarNinos(); 
+	});
+
+	// Llama el menu sincronización
+	$('#Formularios').on('click', function(){
+		SincronizarMenuFormularios();
+	});
+
+	//Programo el boton regresar
+	$('#Regresar').on('click', function () {
+		window.open('index.html', '_self');
+	});
+
+});
+</script>

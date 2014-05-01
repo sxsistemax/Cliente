@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+
+<head>
+   <title>Nutricion Integral</title>
+    <link href="nutricion.css" rel="stylesheet" type="text/css">
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="datos.js"></script>
+</head>
+<html>
+<body>
+    <div>Menu Principal</div>
+    <ul>
+        <li><a href="#" id='Sincronizar'>Sincronizar</a></li>
+        <li><a href="#" id='Formularios'>Formularios</a></li>
+    </ul>
+</body>
+</html>
+<script>    
+$(function(){
+    
+    // Llama el menu sincronización
+    $('#Sincronizar').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+      window.open('sincronizar.html', '_self');
+    });
+
+    // Llama el menu sincronización
+    $('#Formularios').on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        window.open('Formularios.html', '_self');
+    });
+
+});
+</script>

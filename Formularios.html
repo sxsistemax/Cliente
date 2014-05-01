@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+
+<head>
+   <title>Nutricion Integral</title>
+    <link href="nutricion.css" rel="stylesheet" type="text/css">
+    <script src="jquery-1.11.0.min.js"></script>
+    <script src="datos.js"></script>    
+</head>
+<html>
+<body>
+    Formularios
+    <ul id="MenuFormularios">
+    </ul>
+    <br>
+    <button id="Regresar">Regresar</button>
+</body>
+</html>
+
+<script>
+
+// Pinta los formularios leidos
+function ProcesarMenuFormularios()
+{
+	var Menu = CargarMenuFormuarios();
+	var IdCategoria = '';
+    // recoro Formularios para pintar las categorias
+    for (var i = 0; i < Formularios.length; i++)
+    {
+        // adiciono la categoria
+        Menu = '<li><ul>' + Formularios[i].Categoria + '</lu>';
+        var ContenidoCategoria = Formularios[i].Formularios;
+        for (var j = 0; j < ContenidoCategoria.length ; j++)
+        {
+          Menu = Menu + '<li><a href="#" id="Formulario' + ContenidoCategoria[j].IdFormulario + '" class="Formulario" data-IdFormulario="' + ContenidoCategoria[j].IdFormulario + '">' + ContenidoCategoria[j].Formulario + '</a></li>';
+        }
+        Menu = Menu + '</ul></li>';
+        $('#MenuFormularios').html(Menu);
+    }    
+}
+    
+$(function() {    
+    // Cargo los formularios en la lista
+    CargarMenuFormularios();
+    
+    // se programa el evento clic para cada uno de los formularios
+    $('.Formulario').on('click', function (e) {
+        var IdFormulario = $(this).data('IdFormulario');
+        window.open('Formulario.html?IdFormulario=' + IdFormulario, '_self');    
+    }); 
+    
+    //Programo el boton regresar
+    $('#Regresar').on('click', function(){
+        window.open('index.html', '_self');
+    });
+});
+</script>

@@ -1,0 +1,142 @@
+<!doctype html>
+<head>
+    <title>Prueba</title>
+    <script src="jquery-1.11.0.min.js"></script>
+</head>
+<html>
+<body>
+    Formulario 
+    <div Id='InformacionBasica'>
+        Inforamcion Básica 
+        <input type="text" placeholder="NUIP" id="NUIP" value="" required="required" />
+        <button id="Buscar" type="button">Buscar</button>
+        <button id="Regresar" type="button">Regresar</button>
+        <br>
+        <label id="Mensaje"></label>
+        <div id='Resultado'>
+            <input type="text" id=Nombre value="" placeholder="Nobre" readonly="readonly" />
+            <br>
+        </div>
+        <br>
+    </div>
+    
+    <div id="Formularios">
+        <div class="contenedorEncuentas">
+        </div>
+
+        <div>
+            <br>
+            <button Id="GuardarFormulario">Guardar</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+// Definicion de variables
+NUIP = '';
+
+    
+// valida si el NUIP se encuentra en la base de datos    
+function ValidarNUIP()
+{
+    
+    
+    //debe buscar el NUIP en la base de datos
+    
+    
+    $('#Resultado').show();
+    
+    $('Nombre').val('Nombre cargado');
+    
+    return true;
+}
+    
+function PintarPreguntas()
+{
+
+    var datos = LeerDatos();
+    var Pregunta = '';
+    // recoro datos para pintar las preguntas
+    for (var i = 0; i < datos.length; i++)
+    {
+        Pregunta = '<div class="Pregunta" id="Pregunta' + datos[i].IdPregunta + '" ' +
+            'data-IdPregunta="' + datos[i].IdPregunta + '"> ' +
+            datos[i].Pregunta + '<br>' +
+            datos[i].Observacion + '<br>';
+            var opciones = datos[i].Opciones;
+            for (var j = 0; j < opciones.length ; j++)
+            {
+              Pregunta = Pregunta + '<input type="radio" Name="Opcion_' + datos[i].IdPregunta + '" ' +
+                        'value="' + opciones[j].IdOpcion + '">' + opciones[j].Descripcion + '<br>';
+            }
+            Pregunta = Pregunta + '</div><br>';
+            $('.contenedorEncuentas').append(Pregunta);
+    }
+}
+    
+//Valida el formuario
+function Validar
+{
+    alert('Validando formulario');
+    return true;
+}
+    
+// Graba los datos
+function Grabar()
+{
+    alert('Grabar datos');
+}
+    
+// Limpia el formulario
+function LimpuarFormulario();
+{
+    $('.contenedorEncuentas').html('');
+}
+    
+// Valida la informacion de formulario y si es correcta a graba, deha e formulario listo para contiuar
+// guardando información
+function GrabarFormulario();
+{
+    // Valida el formulario
+    if (ValidarFormuario())
+    {
+        Grabar();
+        LimpuarFormulario();
+    }
+}
+    
+    
+$(function(){
+    //Esconde los elementos
+    $('#Resultado').hide();
+    $('#Formularios').hide();
+    
+    //Retorna a la pagina de formularios
+    $('#Regresar').on('click', function() {
+        window.open('Formularios.html', '_self');
+    }):
+
+    //Retorna a la pagina de formularios
+    $('#Grabar').on('click', function() {
+        GrabarFomulario();
+    }):
+    
+    
+    //Programa el boton buscar niño
+    $('#Buscar').on('click', function(e) {
+        
+        // Validar el NUIP
+        if( ValidarNUIP)
+        {
+            PintarPreguntas();
+        }
+    });
+    
+    //programo el eveento click para guardar la informacion    
+    $("#GuardarFormulario").on("click", function(e) {
+    });
+    
+    AdicionarPreguntas(Datos);
+});
+    
+</script>
