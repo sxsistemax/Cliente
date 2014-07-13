@@ -1,10 +1,18 @@
 <!DOCTYPE HTML>
 
 <head>
-   <title>Nutricion Integral</title>
-    <link href="nutricion.css" rel="stylesheet" type="text/css">
-    <script src="jquery-1.11.0.min.js"></script>
-    <script src="datos.js"></script>    
+    <title>Nutricion Integral</title>
+	<link href="css/nutricion.css" rel="stylesheet" type="text/css">
+	<script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/JayData.js"></script>      
+<!--
+    <script src="jaydataproviders/oDataProvider.js"></script>
+    <script src="jaydataproviders/IndexedDbProvider.js"></script>  
+-->
+    <script type="text/javascript" src="http://include.jaydata.org/jaydata.js"></script>
+    <script type="text/javascript" src="http://include.jaydata.org/jaydataproviders/InMemoryProvider.js"></script>
+    
+	<script src="js/datos.js"></script>    
 </head>
 <html>
 <body>
@@ -18,39 +26,51 @@
 
 <script>
 
-// Pinta los formularios leidos
-function ProcesarMenuFormularios()
-{
-	var Menu = CargarMenuFormuarios();
-	var IdCategoria = '';
-    // recoro Formularios para pintar las categorias
-    for (var i = 0; i < Formularios.length; i++)
+    
+$(function() {   
+
+    // Pinta los formularios leidos
+    function ProcesarMenuFormularios()
     {
-        // adiciono la categoria
-        Menu = '<li><ul>' + Formularios[i].Categoria + '</lu>';
-        var ContenidoCategoria = Formularios[i].Formularios;
-        for (var j = 0; j < ContenidoCategoria.length ; j++)
+        var items = CargarMenuFormularios();
+        //var items = formula;
+        var Menu = '';
+        var IdCategoria = 0;
+        // recoro Formularios para pintar las categorias
+        for (var i = 0; i < items.length; i++)
         {
-          Menu = Menu + '<li><a href="#" id="Formulario' + ContenidoCategoria[j].IdFormulario + '" class="Formulario" data-IdFormulario="' + ContenidoCategoria[j].IdFormulario + '">' + ContenidoCategoria[j].Formulario + '</a></li>';
+            if (items.IdCategoria != IdCategoria)
+            {
+                if (Menu != '')
+                {
+                    Menu = Menu + '</lu>';
+                }
+
+                // adiciono la categoria
+                Menu = Menu + '<li><ul>' + items[i].Categoria + '</lu>';
+                IdCategoria = items[i].IdCategoria;
+            }
+            Menu = Menu + '<li><a href="#" id="Formulario' + items[i].IdFormulario + '" class="Formulario" data-IdFormulario="' + items[j].IdFormulario + '">' + items[j].Formulario + '</a></li>';
+        }    
+        if (Menu != '')
+        {
+            Menu = Menu + '</lu>';
+            $('#MenuFormularios').html(Menu);
         }
-        Menu = Menu + '</ul></li>';
-        $('#MenuFormularios').html(Menu);
     }    
-}
-    
-$(function() {    
-    // Cargo los formularios en la lista
-    CargarMenuFormularios();
-    
-    // se programa el evento clic para cada uno de los formularios
-    $('.Formulario').on('click', function (e) {
-        var IdFormulario = $(this).data('IdFormulario');
-        window.open('Formulario.html?IdFormulario=' + IdFormulario, '_self');    
-    }); 
     
     //Programo el boton regresar
     $('#Regresar').on('click', function(){
         window.open('index.html', '_self');
-    });
+    });    
+    
+    // Cargo los formularios en la lista
+    ProcesarMenuFormularios();
+
+    // se programa el evento clic para cada uno de los formularios
+    $('.Formulario').on('click', function (e) {
+        var IdFormulario = $(this).data('IdFormulario');
+        window.open('Formulario.html?IdFormulario=' + IdFormulario, '_self');    
+    });     
 });
 </script>
